@@ -1,33 +1,24 @@
-package Models;
+package entities;
 
 import jakarta.persistence.*;
+
 import java.util.Set;
 
-@Entity
-@Table(name = "actor")
-public class Actor {
-    private int id;
+@MappedSuperclass
+public class Worker extends BaseEntity {
     private String name;
     private String surname;
     private String education;
     private String award;
-    private Set<Performance> performance;
 
-    public Actor() {}
-
-    public Actor(String name, String surname, String education, String award) {
+    public Worker(String name, String surname, String education, String award) {
         this.name = name;
         this.surname = surname;
         this.education = education;
         this.award = award;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    public int getId() {
-        return id;
-    }
+    protected Worker() {}
 
     @Column(name = "name", nullable = false)
     public String getName() {
@@ -49,15 +40,6 @@ public class Actor {
         return award;
     }
 
-    @ManyToMany(mappedBy = "actor", targetEntity = Performance.class)
-    public Set<Performance> getPerformance() {
-        return performance;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -72,9 +54,5 @@ public class Actor {
 
     public void setAward(String award) {
         this.award = award;
-    }
-
-    public void setPerformance(Set<Performance> performance) {
-        this.performance = performance;
     }
 }

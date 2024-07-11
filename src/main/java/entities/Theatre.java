@@ -1,32 +1,24 @@
-package Models;
+package entities;
 
 import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "theatre")
-public class Theatre {
-    private int id;
+public class Theatre extends BaseEntity {
     private String name;
     private String location;
     private String phoneNumber;
     private int numberOfSeats;
     private Set<Performance> performance;
 
-    public Theatre() {}
+    protected Theatre() {}
 
     public Theatre(String name, String location, String phoneNumber, int numberOfSeats) {
         this.name = name;
         this.location = location;
         this.phoneNumber = phoneNumber;
         this.numberOfSeats = numberOfSeats;
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    public int getId() {
-        return id;
     }
 
     @Column(name = "name")
@@ -52,10 +44,6 @@ public class Theatre {
     @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL)
     public Set<Performance> getPerformance() {
         return performance;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setName(String name) {

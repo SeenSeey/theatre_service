@@ -1,4 +1,4 @@
-package Models;
+package entities;
 
 import jakarta.persistence.*;
 import java.util.Date;
@@ -6,8 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "performance")
-public class Performance {
-    private int id;
+public class Performance extends BaseEntity {
     private Theatre theatre;
     private Set<Director> director;
     private Set<Actor> actor;
@@ -23,13 +22,6 @@ public class Performance {
         this.timeIntervalPerformance = timeIntervalPerformance;
         this.dateOfPerformance = dateOfPerformance;
         this.author = author;
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    public int getId() {
-        return id;
     }
 
     @ManyToOne
@@ -68,10 +60,6 @@ public class Performance {
     @Column(name = "author")
     public String getAuthor() {
         return author;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setTheatre(Theatre theatre) {
