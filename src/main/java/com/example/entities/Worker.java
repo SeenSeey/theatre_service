@@ -1,8 +1,7 @@
-package entities;
+package com.example.entities;
 
+import com.example.entities.BaseEntity;
 import jakarta.persistence.*;
-
-import java.util.Set;
 
 @MappedSuperclass
 public class Worker extends BaseEntity {

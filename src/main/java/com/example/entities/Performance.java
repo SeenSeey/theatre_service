@@ -1,4 +1,4 @@
-package entities;
+package com.example.entities;
 
 import jakarta.persistence.*;
 import java.util.Date;
@@ -9,7 +9,6 @@ import java.util.Set;
 public class Performance extends BaseEntity {
     private Theatre theatre;
     private Set<Director> director;
-    private Set<Actor> actor;
     private String name;
     private String timeIntervalPerformance;
     private Date dateOfPerformance;
@@ -31,15 +30,13 @@ public class Performance extends BaseEntity {
     }
 
     @ManyToMany
-    @JoinColumn(name = "director_id")
+    @JoinTable(
+            name = "performance_actor",
+            joinColumns = @JoinColumn(name = "performance_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id")
+    )
     public Set<Director> getDirector() {
         return director;
-    }
-
-    @ManyToMany
-    @JoinColumn(name = "actor_id")
-    public Set<Actor> getActor() {
-        return actor;
     }
 
     @Column(name = "name")
@@ -68,10 +65,6 @@ public class Performance extends BaseEntity {
 
     public void setDirector(Set<Director> director) {
         this.director = director;
-    }
-
-    public void setActor(Set<Actor> actor) {
-        this.actor = actor;
     }
 
     public void setName(String name) {

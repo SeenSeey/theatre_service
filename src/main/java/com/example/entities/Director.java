@@ -1,11 +1,11 @@
-package entities;
+package com.example.entities;
 
 import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "director")
-public class Director extends Worker{
+public class Director extends Worker {
     private Set<Performance> performances;
 
     protected Director() {}
