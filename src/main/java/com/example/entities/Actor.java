@@ -6,7 +6,7 @@ import java.util.Set;
 @Entity
 @Table(name = "actor")
 public class Actor extends Worker {
-    private Set<Contract> contracts;
+    private Set<Contract> contract;
 
 //    protected Actor() {
 //    }
@@ -17,10 +17,10 @@ public class Actor extends Worker {
 
     @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<Contract> getContracts() {
-        return contracts;
+        return contract;
     }
 
     public void setContracts(Set<Contract> contracts) {
-        this.contracts = contracts;
+        this.contract = contracts;
     }
 }

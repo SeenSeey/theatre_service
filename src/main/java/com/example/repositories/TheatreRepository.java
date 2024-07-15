@@ -7,5 +7,5 @@ import java.util.Optional;
 public interface TheatreRepository {
     Theatre save(Theatre theatre);
     Optional<Theatre> update(Theatre theatre);
-    Optional<Theatre> findByPerformanceId(int id);
+    Optional<Theatre> findTheatreByPerformanceId(int id);
 }

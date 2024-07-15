@@ -34,7 +34,7 @@ public class ActorRepositoryDao implements ActorRepository {
 
 @Repository
 interface BaseActorRepository extends JpaRepository<Actor, Integer> {
-    @Query(value = "select a FROM Actor a " + "JOIN a.contracts c " +
-            "JOIN c.performance p " + "WHERE p.name = :performanceName")
+    @Query(value = "SELECT a FROM Actor a JOIN a.contract c " +
+            "JOIN c.performance p WHERE p.name = :performanceName")
     List<Actor> findActorByPerformanceName(@Param("performanceName") String performanceName);
 }

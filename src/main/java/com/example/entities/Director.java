@@ -6,7 +6,7 @@ import java.util.Set;
 @Entity
 @Table(name = "director")
 public class Director extends Worker {
-    private Set<Performance> performances;
+    private Set<Performance> performance;
 
 //    protected Director() {}
 
@@ -16,10 +16,10 @@ public class Director extends Worker {
 
     @ManyToMany(mappedBy = "director", targetEntity = Performance.class)
     public Set<Performance> getPerformances() {
-        return performances;
+        return performance;
     }
 
     public void setPerformances(Set<Performance> performances) {
-        this.performances = performances;
+        this.performance = performances;
     }
 }
