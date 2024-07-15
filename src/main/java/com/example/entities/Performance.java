@@ -9,6 +9,7 @@ import java.util.Set;
 public class Performance extends BaseEntity {
     private Theatre theatre;
     private Set<Director> director;
+    private Set<Contract> contract;
     private String name;
     private String timeIntervalPerformance;
     private Date dateOfPerformance;
@@ -31,12 +32,17 @@ public class Performance extends BaseEntity {
 
     @ManyToMany
     @JoinTable(
-            name = "performance_actor",
+            name = "performance_director",
             joinColumns = @JoinColumn(name = "performance_id"),
-            inverseJoinColumns = @JoinColumn(name = "actor_id")
+            inverseJoinColumns = @JoinColumn(name = "director_id")
     )
     public Set<Director> getDirector() {
         return director;
+    }
+
+    @OneToMany(mappedBy = "performance", cascade = CascadeType.ALL)
+    public Set<Contract> getContract() {
+        return contract;
     }
 
     @Column(name = "name")
@@ -61,6 +67,10 @@ public class Performance extends BaseEntity {
 
     public void setTheatre(Theatre theatre) {
         this.theatre = theatre;
+    }
+
+    public void setContract(Set<Contract> contract) {
+        this.contract = contract;
     }
 
     public void setDirector(Set<Director> director) {

@@ -1,7 +1,5 @@
 package com.example.entities;
 
-import com.example.entities.BaseEntity;
-import com.example.entities.Performance;
 import jakarta.persistence.*;
 import java.util.Set;
 

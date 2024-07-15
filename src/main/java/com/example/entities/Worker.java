@@ -4,7 +4,7 @@ import com.example.entities.BaseEntity;
 import jakarta.persistence.*;
 
 @MappedSuperclass
-public class Worker extends BaseEntity {
+public abstract class Worker extends BaseEntity {
     private String name;
     private String surname;
     private String education;
