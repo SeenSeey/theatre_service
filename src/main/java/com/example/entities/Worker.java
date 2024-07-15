@@ -1,6 +1,5 @@
 package com.example.entities;
 
-import com.example.entities.BaseEntity;
 import jakarta.persistence.*;
 
 @MappedSuperclass

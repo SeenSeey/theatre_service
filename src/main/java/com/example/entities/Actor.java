@@ -8,12 +8,12 @@ import java.util.Set;
 public class Actor extends Worker {
     private Set<Contract> contracts;
 
-    protected Actor() {
-    }
+//    protected Actor() {
+//    }
 
-    public Actor(String name, String surname, String education, String award) {
-        super(name, surname, education, award);
-    }
+//    public Actor(String name, String surname, String education, String award, CategoryForWorker category) {
+//        super(name, surname, education, award, category);
+//    }
 
     @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<Contract> getContracts() {
