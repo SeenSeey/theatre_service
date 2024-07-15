@@ -9,12 +9,14 @@ public abstract class Worker extends BaseEntity {
     private String surname;
     private String education;
     private String award;
+    private CategoryForWorker category;
 
-    public Worker(String name, String surname, String education, String award) {
+    public Worker(String name, String surname, String education, String award, CategoryForWorker category) {
         this.name = name;
         this.surname = surname;
         this.education = education;
         this.award = award;
+        this.category = category;
     }
 
     protected Worker() {}
@@ -39,6 +41,11 @@ public abstract class Worker extends BaseEntity {
         return award;
     }
 
+    @Column(name = "category", nullable = false)
+    public CategoryForWorker getCategory() {
+        return category;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -53,5 +60,9 @@ public abstract class Worker extends BaseEntity {
 
     public void setAward(String award) {
         this.award = award;
+    }
+
+    public void setCategory(CategoryForWorker category) {
+        this.category = category;
     }
 }
