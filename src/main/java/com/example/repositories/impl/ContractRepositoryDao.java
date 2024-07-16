@@ -17,11 +17,6 @@ public class ContractRepositoryDao implements ContractRepository {
     public Contract save(Contract contract) {
         return baseContractRepository.save(contract);
     }
-
-    @Override
-    public Optional<Contract> update(Contract contract) {
-        return Optional.of(baseContractRepository.save(contract));
-    }
 }
 
 @Repository
