@@ -16,9 +16,18 @@ public class Performance extends BaseEntity {
     private Date dateOfPerformance;
     private String author;
 
-    public Performance() {}
+    protected Performance() {}
 
-    public Performance(String name, String timeIntervalPerformance, Date dateOfPerformance, String author) {
+//    public Performance(String name, String timeIntervalPerformance, Date dateOfPerformance, String author) {
+//        this.name = name;
+//        this.timeIntervalPerformance = timeIntervalPerformance;
+//        this.dateOfPerformance = dateOfPerformance;
+//        this.author = author;
+//    }
+
+
+    public Performance(Theatre theatre, String name, String timeIntervalPerformance, Date dateOfPerformance, String author) {
+        this.theatre = theatre;
         this.name = name;
         this.timeIntervalPerformance = timeIntervalPerformance;
         this.dateOfPerformance = dateOfPerformance;

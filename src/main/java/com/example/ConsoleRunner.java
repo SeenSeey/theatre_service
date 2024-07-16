@@ -6,6 +6,7 @@ import com.example.entities.CategoryForWorker;
 import com.example.services.ActorService;
 import com.example.services.DirectorService;
 import com.example.services.PerformanceService;
+import com.example.services.TheatreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,8 @@ public class ConsoleRunner implements CommandLineRunner {
     private PerformanceService performanceService;
     @Autowired
     private DirectorService directorService;
+    @Autowired
+    private TheatreService theatreService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -37,5 +40,10 @@ public class ConsoleRunner implements CommandLineRunner {
         directorService.add(addDirectorDto);
         AddDirectorToPerformanceDto addDirectorToPerformanceDto = new AddDirectorToPerformanceDto(1, 1);
         performanceService.addDirectorToPerformance(addDirectorToPerformanceDto);
+
+        AddTheatreDto addTheatreDto = new AddTheatreDto("Большой", "Москва, Театральная пл.", "+79998887777", 1200);
+        theatreService.add(addTheatreDto);
+        AddPerformanceToTheatreDto addPerformanceToTheatreDto = new AddPerformanceToTheatreDto(1, 1);
+        theatreService.addPerformanceToTheatre(addPerformanceToTheatreDto);
     }
 }

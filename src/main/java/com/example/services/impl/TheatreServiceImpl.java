@@ -1,11 +1,15 @@
 package com.example.services.impl;
 
 import com.example.dto.TheatreDto;
+import com.example.dto.api.AddPerformanceToTheatreDto;
 import com.example.dto.api.AddTheatreDto;
 import com.example.dto.api.UpdateTheatreDto;
+import com.example.entities.Performance;
 import com.example.entities.Theatre;
+import com.example.repositories.PerformanceRepository;
 import com.example.repositories.TheatreRepository;
 import com.example.services.TheatreService;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +20,8 @@ import java.util.Optional;
 public class TheatreServiceImpl implements TheatreService {
     @Autowired
     private TheatreRepository theatreRepository;
+    @Autowired
+    private PerformanceRepository performanceRepository;
 
     private ModelMapper mapper = new ModelMapper();
 
@@ -48,5 +54,23 @@ public class TheatreServiceImpl implements TheatreService {
         }
 
         return Optional.of(mapper.map(optionalTheatre.get(), TheatreDto.class));
+    }
+
+    @Override
+    @Transactional
+    public Optional<TheatreDto> addPerformanceToTheatre(AddPerformanceToTheatreDto addPerformanceToTheatreDto) {
+        Optional<Performance> optionalPerformance = performanceRepository.findById(addPerformanceToTheatreDto.getPerformanceId());
+        Optional<Theatre> optionalTheatre = theatreRepository.findById(addPerformanceToTheatreDto.getTheatreId());
+
+        if (optionalPerformance.isPresent() && optionalTheatre.isPresent()) {
+            Performance performance = optionalPerformance.get();
+            Theatre theatre = optionalTheatre.get();
+
+            performanceRepository.save(performance);
+            theatreRepository.save(theatre);
+            return Optional.of(mapper.map(theatre, TheatreDto.class));
+        } else {
+            return Optional.empty();
+        }
     }
 }

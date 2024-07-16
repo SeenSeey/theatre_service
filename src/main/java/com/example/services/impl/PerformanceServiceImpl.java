@@ -1,14 +1,12 @@
 package com.example.services.impl;
 
 import com.example.dto.PerformanceDto;
-import com.example.dto.api.AddActorToPerformanceDto;
-import com.example.dto.api.AddDirectorToPerformanceDto;
-import com.example.dto.api.AddPerformanceDto;
-import com.example.dto.api.UpdatePerformanceDto;
+import com.example.dto.api.*;
 import com.example.entities.*;
 import com.example.repositories.ActorRepository;
 import com.example.repositories.DirectorRepository;
 import com.example.repositories.PerformanceRepository;
+import com.example.repositories.TheatreRepository;
 import com.example.services.PerformanceService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -27,6 +25,8 @@ public class PerformanceServiceImpl implements PerformanceService {
     private ActorRepository actorRepository;
     @Autowired
     private DirectorRepository directorRepository;
+    @Autowired
+    private TheatreRepository theatreRepository;
 
     private ModelMapper mapper = new ModelMapper();
 
