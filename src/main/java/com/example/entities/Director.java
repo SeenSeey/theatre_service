@@ -15,11 +15,11 @@ public class Director extends Worker {
 //    }
 
     @ManyToMany(mappedBy = "director", targetEntity = Performance.class)
-    public Set<Performance> getPerformances() {
+    public Set<Performance> getPerformance() {
         return performance;
     }
 
-    public void setPerformances(Set<Performance> performances) {
+    public void setPerformance(Set<Performance> performances) {
         this.performance = performances;
     }
 }

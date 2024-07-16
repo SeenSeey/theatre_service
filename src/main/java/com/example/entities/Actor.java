@@ -16,11 +16,11 @@ public class Actor extends Worker {
 //    }
 
     @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
-    public Set<Contract> getContracts() {
+    public Set<Contract> getContract() {
         return contract;
     }
 
-    public void setContracts(Set<Contract> contracts) {
-        this.contract = contracts;
+    public void setContract(Set<Contract> contracts) {
+        this.contract = contract;
     }
 }
