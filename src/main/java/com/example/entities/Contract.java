@@ -9,7 +9,9 @@ public class Contract extends BaseEntity {
     private Actor actor;
     private String role;
 
-    public Contract(String role) {
+    public Contract(Performance performance, Actor actor, String role) {
+        this.performance = performance;
+        this.actor = actor;
         this.role = role;
     }
 

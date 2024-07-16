@@ -1,21 +1,16 @@
 package com.example.entities;
 
 import jakarta.persistence.*;
+
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "actor")
 public class Actor extends Worker {
-    private Set<Contract> contract;
+    private Set<Contract> contract  = new LinkedHashSet<>();
 
-//    protected Actor() {
-//    }
-
-//    public Actor(String name, String surname, String education, String award, CategoryForWorker category) {
-//        super(name, surname, education, award, category);
-//    }
-
-    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL)
     public Set<Contract> getContract() {
         return contract;
     }

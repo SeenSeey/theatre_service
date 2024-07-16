@@ -8,9 +8,11 @@ import com.example.repositories.TheatreRepository;
 import com.example.services.TheatreService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class TheatreServiceImpl implements TheatreService {
     @Autowired
     private TheatreRepository theatreRepository;

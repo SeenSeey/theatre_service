@@ -40,6 +40,11 @@ public class PerformanceRepositoryDao implements PerformanceRepository {
     public Optional<Performance> findById(int id) {
         return Optional.of(basePerformanceRepository.findById(id));
     }
+
+    @Override
+    public List<Performance> findAll() {
+        return basePerformanceRepository.findAll();
+    }
 }
 
 @Repository

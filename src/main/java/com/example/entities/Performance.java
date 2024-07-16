@@ -2,6 +2,7 @@ package com.example.entities;
 
 import jakarta.persistence.*;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -9,7 +10,7 @@ import java.util.Set;
 public class Performance extends BaseEntity {
     private Theatre theatre;
     private Set<Director> director;
-    private Set<Contract> contract;
+    private Set<Contract> contract  = new LinkedHashSet<>();
     private String name;
     private String timeIntervalPerformance;
     private Date dateOfPerformance;

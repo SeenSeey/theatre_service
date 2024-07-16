@@ -1,20 +1,32 @@
 package com.example.services.impl;
 
 import com.example.dto.PerformanceDto;
+import com.example.dto.api.AddActorToPerformanceDto;
 import com.example.dto.api.AddPerformanceDto;
 import com.example.dto.api.UpdatePerformanceDto;
+import com.example.entities.Actor;
+import com.example.entities.CategoryForWorker;
+import com.example.entities.Contract;
 import com.example.entities.Performance;
+import com.example.repositories.ActorRepository;
 import com.example.repositories.PerformanceRepository;
 import com.example.services.PerformanceService;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class PerformanceServiceImpl implements PerformanceService {
     @Autowired
     private PerformanceRepository performanceRepository;
+    @Autowired
+    private ActorRepository actorRepository;
 
     private ModelMapper mapper = new ModelMapper();
 
@@ -48,5 +60,49 @@ public class PerformanceServiceImpl implements PerformanceService {
     public List<PerformanceDto> findPerformanceByDirectorNameAndSurname(String name, String surname) {
         return performanceRepository.findPerformanceByDirectorNameAndSurname(name, surname).stream().map((performance) ->
                 mapper.map(performance, PerformanceDto.class)).toList();
+    }
+
+    @Override
+    @Transactional
+    public Optional<PerformanceDto> addActorToPerformance(AddActorToPerformanceDto addActorToPerformanceDto) {
+        Optional<Performance> optionalPerformance = performanceRepository.findById(addActorToPerformanceDto.getPerformanceId());
+        Optional<Actor> optionalActor = actorRepository.findById(addActorToPerformanceDto.getActorId());
+
+        if (optionalPerformance.isPresent() && optionalActor.isPresent()) {
+            Performance performance = optionalPerformance.get();
+            Actor actor = optionalActor.get();
+
+            if (actor.getCategory() == CategoryForWorker.FREE) {
+                Contract contract = new Contract(performance, actor, addActorToPerformanceDto.getRole());
+                performance.getContract().add(contract);
+//                actor.getContract().add(contract);
+
+                actor.setCategory(CategoryForWorker.BUSY);
+
+                performanceRepository.save(performance);
+                actorRepository.save(actor);
+                return Optional.of(mapper.map(performance, PerformanceDto.class));
+            } else {
+                return Optional.empty();
+            }
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public void updateActorCategoriesAfterPerformance() {
+        List<Performance> performances = performanceRepository.findAll();
+        Date currentDate = new Date();
+
+        for (Performance performance : performances) {
+            if (performance.getDateOfPerformance().before(currentDate)) {
+                for (Contract contract : performance.getContract()) {
+                    Actor actor = contract.getActor();
+                    actor.setCategory(CategoryForWorker.FREE);
+                    actorRepository.save(actor);
+                }
+            }
+        }
     }
 }
