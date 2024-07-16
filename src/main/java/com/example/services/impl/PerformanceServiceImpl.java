@@ -52,14 +52,20 @@ public class PerformanceServiceImpl implements PerformanceService {
 
     @Override
     public List<PerformanceDto> findPerformanceByActorNameAndSurname(String name, String surname) {
-        return performanceRepository.findPerformanceByActorNameAndSurname(name, surname).stream().map((performance) ->
-                mapper.map(performance, PerformanceDto.class)).toList();
+        Date currentDate = new Date();
+        return performanceRepository.findPerformanceByActorNameAndSurname(name, surname).stream()
+                .filter(performance -> performance.getDateOfPerformance().after(currentDate))
+                .map(performance -> mapper.map(performance, PerformanceDto.class))
+                .toList();
     }
 
     @Override
     public List<PerformanceDto> findPerformanceByDirectorNameAndSurname(String name, String surname) {
-        return performanceRepository.findPerformanceByDirectorNameAndSurname(name, surname).stream().map((performance) ->
-                mapper.map(performance, PerformanceDto.class)).toList();
+        Date currentDate = new Date();
+        return performanceRepository.findPerformanceByDirectorNameAndSurname(name, surname).stream()
+                .filter(performance -> performance.getDateOfPerformance().after(currentDate))
+                .map(performance -> mapper.map(performance, PerformanceDto.class))
+                .toList();
     }
 
     @Override
