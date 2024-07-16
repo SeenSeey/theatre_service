@@ -8,12 +8,6 @@ import java.util.Set;
 public class Director extends Worker {
     private Set<Performance> performance;
 
-//    protected Director() {}
-
-//    public Director(String name, String surname, String education, String award, CategoryForWorker category) {
-//        super(name, surname, education, award, category);
-//    }
-
     @ManyToMany(mappedBy = "director", targetEntity = Performance.class)
     public Set<Performance> getPerformance() {
         return performance;

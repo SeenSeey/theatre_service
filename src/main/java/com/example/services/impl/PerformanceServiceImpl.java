@@ -2,13 +2,12 @@ package com.example.services.impl;
 
 import com.example.dto.PerformanceDto;
 import com.example.dto.api.AddActorToPerformanceDto;
+import com.example.dto.api.AddDirectorToPerformanceDto;
 import com.example.dto.api.AddPerformanceDto;
 import com.example.dto.api.UpdatePerformanceDto;
-import com.example.entities.Actor;
-import com.example.entities.CategoryForWorker;
-import com.example.entities.Contract;
-import com.example.entities.Performance;
+import com.example.entities.*;
 import com.example.repositories.ActorRepository;
+import com.example.repositories.DirectorRepository;
 import com.example.repositories.PerformanceRepository;
 import com.example.services.PerformanceService;
 import jakarta.transaction.Transactional;
@@ -17,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +25,8 @@ public class PerformanceServiceImpl implements PerformanceService {
     private PerformanceRepository performanceRepository;
     @Autowired
     private ActorRepository actorRepository;
+    @Autowired
+    private DirectorRepository directorRepository;
 
     private ModelMapper mapper = new ModelMapper();
 
@@ -63,8 +63,30 @@ public class PerformanceServiceImpl implements PerformanceService {
     }
 
     @Override
+    public void updateCategoriesAfterPerformance() {
+        List<Performance> performances = performanceRepository.findAll();
+        Date currentDate = new Date();
+
+        for (Performance performance : performances) {
+            if (performance.getDateOfPerformance().before(currentDate)) {
+                for (Contract contract : performance.getContract()) {
+                    Actor actor = contract.getActor();
+                    actor.setCategory(CategoryForWorker.FREE);
+                    actorRepository.save(actor);
+                }
+
+                for (Director director : performance.getDirector()) {
+                    director.setCategory(CategoryForWorker.FREE);
+                    directorRepository.save(director);
+                }
+            }
+        }
+    }
+
+    @Override
     @Transactional
     public Optional<PerformanceDto> addActorToPerformance(AddActorToPerformanceDto addActorToPerformanceDto) {
+        updateCategoriesAfterPerformance();
         Optional<Performance> optionalPerformance = performanceRepository.findById(addActorToPerformanceDto.getPerformanceId());
         Optional<Actor> optionalActor = actorRepository.findById(addActorToPerformanceDto.getActorId());
 
@@ -75,7 +97,6 @@ public class PerformanceServiceImpl implements PerformanceService {
             if (actor.getCategory() == CategoryForWorker.FREE) {
                 Contract contract = new Contract(performance, actor, addActorToPerformanceDto.getRole());
                 performance.getContract().add(contract);
-//                actor.getContract().add(contract);
 
                 actor.setCategory(CategoryForWorker.BUSY);
 
@@ -91,18 +112,30 @@ public class PerformanceServiceImpl implements PerformanceService {
     }
 
     @Override
-    public void updateActorCategoriesAfterPerformance() {
-        List<Performance> performances = performanceRepository.findAll();
-        Date currentDate = new Date();
+    @Transactional
+    public Optional<PerformanceDto> addDirectorToPerformance(AddDirectorToPerformanceDto addDirectorToPerformanceDto) {
+        updateCategoriesAfterPerformance();
+        Optional<Performance> optionalPerformance = performanceRepository.findById(addDirectorToPerformanceDto.getPerformanceId());
+        Optional<Director> optionalDirector = directorRepository.findById(addDirectorToPerformanceDto.getDirectorId());
 
-        for (Performance performance : performances) {
-            if (performance.getDateOfPerformance().before(currentDate)) {
-                for (Contract contract : performance.getContract()) {
-                    Actor actor = contract.getActor();
-                    actor.setCategory(CategoryForWorker.FREE);
-                    actorRepository.save(actor);
-                }
+        if (optionalPerformance.isPresent() && optionalDirector.isPresent()) {
+            Performance performance = optionalPerformance.get();
+            Director director = optionalDirector.get();
+
+            if (director.getCategory() == CategoryForWorker.FREE) {
+                performance.getDirector().add(director);
+                director.getPerformance().add(performance);
+
+                director.setCategory(CategoryForWorker.BUSY);
+
+                performanceRepository.save(performance);
+                directorRepository.save(director);
+                return Optional.of(mapper.map(performance, PerformanceDto.class));
+            } else {
+                return Optional.empty();
             }
+        } else {
+            return Optional.empty();
         }
     }
 }

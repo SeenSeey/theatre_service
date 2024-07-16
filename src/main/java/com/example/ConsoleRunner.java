@@ -1,11 +1,10 @@
 package com.example;
 
 import com.example.dto.PerformanceDto;
-import com.example.dto.api.AddActorDto;
-import com.example.dto.api.AddActorToPerformanceDto;
-import com.example.dto.api.AddPerformanceDto;
+import com.example.dto.api.*;
 import com.example.entities.CategoryForWorker;
 import com.example.services.ActorService;
+import com.example.services.DirectorService;
 import com.example.services.PerformanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,6 +18,8 @@ public class ConsoleRunner implements CommandLineRunner {
     private ActorService actorService;
     @Autowired
     private PerformanceService performanceService;
+    @Autowired
+    private DirectorService directorService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -26,11 +27,15 @@ public class ConsoleRunner implements CommandLineRunner {
 
         AddActorDto actorDto = new AddActorDto("Илья", "Иванов", "РУТ", "Золотая Малина", CategoryForWorker.FREE);
         actorService.add(actorDto);
+
         AddPerformanceDto addPerformanceDto = new AddPerformanceDto("Чайка", "2:30", current, "Борис Московский");
         performanceService.add(addPerformanceDto);
         AddActorToPerformanceDto addActorToPerformanceDto = new AddActorToPerformanceDto(1, 1, "Царевна");
         performanceService.addActorToPerformance(addActorToPerformanceDto);
 
-        performanceService.findPerformanceByActorNameAndSurname("Илья", "Иванов");
+        AddDirectorDto addDirectorDto = new AddDirectorDto("Иван", "Великий", "ГИТИС", "Розовый слон", CategoryForWorker.FREE);
+        directorService.add(addDirectorDto);
+        AddDirectorToPerformanceDto addDirectorToPerformanceDto = new AddDirectorToPerformanceDto(1, 1);
+        performanceService.addDirectorToPerformance(addDirectorToPerformanceDto);
     }
 }
