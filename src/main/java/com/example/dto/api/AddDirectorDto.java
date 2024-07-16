@@ -2,16 +2,14 @@ package com.example.dto.api;
 
 import com.example.entities.CategoryForWorker;
 
-public class UpdateActorDto {
-    private int id;
+public class AddDirectorDto {
     private String name;
     private String surname;
     private String education;
     private String award;
     private CategoryForWorker category;
 
-    public UpdateActorDto(int id, String name, String surname, String education, String award, CategoryForWorker category) {
-        this.id = id;
+    public AddDirectorDto(String name, String surname, String education, String award, CategoryForWorker category) {
         this.name = name;
         this.surname = surname;
         this.education = education;
@@ -19,11 +17,7 @@ public class UpdateActorDto {
         this.category = category;
     }
 
-    protected UpdateActorDto() {}
-
-    public int getId() {
-        return id;
-    }
+    protected AddDirectorDto() {}
 
     public String getName() {
         return name;
@@ -43,10 +37,6 @@ public class UpdateActorDto {
 
     public CategoryForWorker getCategory() {
         return category;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setName(String name) {

@@ -1,5 +1,6 @@
 package com.example.repositories.impl;
 
+import com.example.entities.Actor;
 import com.example.entities.Director;
 import com.example.repositories.DirectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,18 @@ public class DirectorRepositoryDao implements DirectorRepository {
     public List<Director> findDirectorByPerformanceName(String performanceName) {
         return baseDirectorRepository.findDirectorByPerformanceName(performanceName);
     }
+
+    @Override
+    public Optional<Director> findById(int id) {
+        return Optional.of(baseDirectorRepository.findById(id));
+    }
 }
 
 @Repository
 interface BaseDirectorRepository extends JpaRepository<Director, Integer> {
     @Query(value = "SELECT d FROM Director d JOIN d.performance p WHERE p.name = :performanceName")
     List<Director> findDirectorByPerformanceName(@Param("performanceName") String name);
+
+    @Query(value = "SELECT d FROM Director d WHERE d.id = :id")
+    Director findById(@Param("id") int id);
 }

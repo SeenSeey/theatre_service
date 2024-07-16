@@ -30,7 +30,7 @@ public class ActorRepositoryDao implements ActorRepository {
     public List<Actor> findActorByPerformanceName(String performanceName) {
         return baseActorRepository.findActorByPerformanceName(performanceName);
     }
-
+    @Override
     public Optional<Actor> findById(int id) {
         return Optional.of(baseActorRepository.findById(id));
     }
