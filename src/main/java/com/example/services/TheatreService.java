@@ -10,6 +10,5 @@ import java.util.Optional;
 public interface TheatreService {
     TheatreDto add(AddTheatreDto addTheatreDto);
     Optional<TheatreDto> update(UpdateTheatreDto updateTheatreDto);
-    Optional<TheatreDto> findTheatreByPerformanceId(int id);
     Optional<TheatreDto> addPerformanceToTheatre(AddPerformanceToTheatreDto addPerformanceToTheatreDto);
 }

@@ -2,12 +2,12 @@ package com.example.controllers;
 
 import com.example.dto.ActorDto;
 import com.example.dto.api.AddActorDto;
+import com.example.dto.api.UpdateActorDto;
 import com.example.services.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/actors")
@@ -15,11 +15,18 @@ public class ActorRestController {
     @Autowired
     private ActorService actorService;
 
-    @PostMapping
-    public ActorDto create(@RequestBody AddActorDto addActorDto) {
-        return actorService.add(addActorDto);
+    @PostMapping("/create")
+    void create(@RequestBody AddActorDto addActorDto) {
+        actorService.add(addActorDto);
     }
 
+    @PatchMapping("/update")
+    void update(@RequestBody UpdateActorDto updateActorDto) {
+        actorService.update(updateActorDto);
+    }
 
-
+    @GetMapping("/{name}")
+    public List<ActorDto> findActorByPerformanceName(@PathVariable String name) {
+        return actorService.findActorByPerformanceName(name);
+    }
 }

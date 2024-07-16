@@ -46,17 +46,6 @@ public class TheatreServiceImpl implements TheatreService {
     }
 
     @Override
-    public Optional<TheatreDto> findTheatreByPerformanceId(int id) {
-        Optional<Theatre> optionalTheatre = theatreRepository.findTheatreByPerformanceId(id);
-
-        if (optionalTheatre.isEmpty()) {
-            return Optional.empty();
-        }
-
-        return Optional.of(mapper.map(optionalTheatre.get(), TheatreDto.class));
-    }
-
-    @Override
     @Transactional
     public Optional<TheatreDto> addPerformanceToTheatre(AddPerformanceToTheatreDto addPerformanceToTheatreDto) {
         Optional<Performance> optionalPerformance = performanceRepository.findById(addPerformanceToTheatreDto.getPerformanceId());

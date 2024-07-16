@@ -17,27 +17,27 @@ public class PerformanceRestController {
     @Autowired
     private PerformanceService performanceService;
 
-    @PostMapping("/performances/create")
+    @PostMapping("/create")
     void create(@RequestBody AddPerformanceDto addPerformanceDto) {
         performanceService.add(addPerformanceDto);
     }
 
-    @PatchMapping("/performances/update")
+    @PatchMapping("/update")
     void update(@RequestBody UpdatePerformanceDto updatePerformanceDto) {
         performanceService.update(updatePerformanceDto);
     }
 
-    @PatchMapping("/performances/add-actor")
+    @PatchMapping("/add-actor")
     void addActorToPerformance(@RequestBody AddActorToPerformanceDto addActorToPerformanceDto) {
         performanceService.addActorToPerformance(addActorToPerformanceDto);
     }
 
-    @PatchMapping("/performances/add-director")
+    @PatchMapping("/add-director")
     void addDirectorToPerformance(@RequestBody AddDirectorToPerformanceDto addDirectorToPerformanceDto) {
         performanceService.addDirectorToPerformance(addDirectorToPerformanceDto);
     }
 
-    @PatchMapping("/performances/update-category")
+    @PatchMapping("/update-category")
     void updateCategoriesAfterPerformance()  {
         performanceService.updateCategoriesAfterPerformance();
     }
