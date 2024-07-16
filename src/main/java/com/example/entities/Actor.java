@@ -8,7 +8,7 @@ import java.util.Set;
 public class Actor extends Worker {
     private Set<Contract> contract;
 
-    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public Set<Contract> getContract() {
         return contract;
     }

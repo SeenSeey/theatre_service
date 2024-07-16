@@ -41,7 +41,7 @@ public class Theatre extends BaseEntity {
         return numberOfSeats;
     }
 
-    @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public Set<Performance> getPerformance() {
         return performance;
     }

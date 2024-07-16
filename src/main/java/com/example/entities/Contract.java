@@ -17,13 +17,13 @@ public class Contract extends BaseEntity {
 
     protected Contract() {}
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "performance_id")
     public Performance getPerformance() {
         return performance;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "actor_id")
     public Actor getActor() {
         return actor;

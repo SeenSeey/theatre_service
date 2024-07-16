@@ -18,14 +18,6 @@ public class Performance extends BaseEntity {
 
     protected Performance() {}
 
-//    public Performance(String name, String timeIntervalPerformance, Date dateOfPerformance, String author) {
-//        this.name = name;
-//        this.timeIntervalPerformance = timeIntervalPerformance;
-//        this.dateOfPerformance = dateOfPerformance;
-//        this.author = author;
-//    }
-
-
     public Performance(Theatre theatre, String name, String timeIntervalPerformance, Date dateOfPerformance, String author) {
         this.theatre = theatre;
         this.name = name;
@@ -34,7 +26,7 @@ public class Performance extends BaseEntity {
         this.author = author;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "theatre_id")
     public Theatre getTheatre() {
         return theatre;
@@ -50,7 +42,7 @@ public class Performance extends BaseEntity {
         return director;
     }
 
-    @OneToMany(mappedBy = "performance", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "performance", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public Set<Contract> getContract() {
         return contract;
     }
