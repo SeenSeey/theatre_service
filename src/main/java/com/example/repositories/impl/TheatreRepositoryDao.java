@@ -29,10 +29,18 @@ public class TheatreRepositoryDao implements TheatreRepository {
     public Optional<Theatre> findTheatreByPerformanceId(int id) {
         return Optional.of(baseTheatreRepository.findTheatreByPerformanceId(id));
     }
+
+    @Override
+    public Optional<Theatre> findById(int id) {
+        return Optional.of(baseTheatreRepository.findById(id));
+    }
 }
 
 @Repository
 interface BaseTheatreRepository extends JpaRepository<Theatre, Integer> {
     @Query(value = "SELECT t FROM Theatre t JOIN t.performance p WHERE p.id = :id")
     Theatre findTheatreByPerformanceId(@Param("id") int id);
+
+    @Query(value = "SELECT t FROM Theatre t WHERE t.id = :id")
+    Theatre findById(@Param("id") int id);
 }
