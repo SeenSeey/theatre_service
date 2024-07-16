@@ -26,7 +26,7 @@ public class ActorRestController {
     }
 
     @GetMapping("/{name}")
-    public List<ActorDto> findActorByPerformanceName(@PathVariable String name) {
+    public Iterable<ActorDto> findActorByPerformanceName(@PathVariable String name) {
         return actorService.findActorByPerformanceName(name);
     }
 }

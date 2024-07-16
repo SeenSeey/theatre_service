@@ -26,7 +26,7 @@ public class DirectorRestController {
     }
 
     @GetMapping("/{name}")
-    public List<DirectorDto> findDirectorByPerformanceName(@PathVariable String name) {
+    public Iterable<DirectorDto> findDirectorByPerformanceName(@PathVariable String name) {
         return directorService.findDirectorByPerformanceName(name);
     }
 }

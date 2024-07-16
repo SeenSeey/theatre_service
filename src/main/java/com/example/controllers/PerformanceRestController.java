@@ -48,7 +48,7 @@ public class PerformanceRestController {
     }
 
     @GetMapping("/director/{name}/{surname}")
-    public List<PerformanceDto> findPerformanceByDirectorNameAndSurname(@PathVariable String name, @PathVariable String surname) {
+    public Iterable<PerformanceDto> findPerformanceByDirectorNameAndSurname(@PathVariable String name, @PathVariable String surname) {
         return performanceService.findPerformanceByDirectorNameAndSurname(name, surname);
     }
 }

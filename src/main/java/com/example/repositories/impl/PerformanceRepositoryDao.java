@@ -38,7 +38,7 @@ public class PerformanceRepositoryDao implements PerformanceRepository {
 
     @Override
     public Optional<Performance> findById(int id) {
-        return Optional.of(basePerformanceRepository.findById(id));
+        return Optional.ofNullable(basePerformanceRepository.findById(id));
     }
 
     @Override
@@ -49,10 +49,8 @@ public class PerformanceRepositoryDao implements PerformanceRepository {
 
 @Repository
 interface BasePerformanceRepository extends JpaRepository<Performance, Integer> {
-    @Query(value = "SELECT p FROM Performance p JOIN p.contract c JOIN c.actor a " +
-            "WHERE a.name = :name AND a.surname = :surname")
-    List<Performance> findPerformanceByActorNameAndSurname(@Param("name") String name,
-                                                           @Param("surname") String surname);
+    @Query("SELECT p FROM Performance p JOIN p.contract c JOIN c.actor a WHERE a.name = :name AND a.surname = :surname")
+    List<Performance> findPerformanceByActorNameAndSurname(@Param("name") String name, @Param("surname") String surname);
 
     @Query(value = "SELECT p FROM Performance p JOIN p.director d WHERE d.name = :name AND d.surname = :surname")
     List<Performance> findPerformanceByDirectorNameAndSurname(@Param("name") String name,

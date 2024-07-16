@@ -74,7 +74,8 @@ public class PerformanceServiceImpl implements PerformanceService {
         Date currentDate = new Date();
 
         for (Performance performance : performances) {
-            if (performance.getDateOfPerformance().before(currentDate)) {
+            Date dateOfPerformance = performance.getDateOfPerformance();
+            if (dateOfPerformance != null && dateOfPerformance.before(currentDate)) {
                 for (Contract contract : performance.getContract()) {
                     Actor actor = contract.getActor();
                     actor.setCategory(CategoryForWorker.FREE);
