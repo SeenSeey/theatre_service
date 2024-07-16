@@ -27,8 +27,17 @@ public class ActorServiceImpl implements ActorService {
     }
 
     @Override
-    public Optional<ActorDto> update(UpdateActorDto actorDto) {
-        return Optional.empty();
+    public Optional<ActorDto> update(UpdateActorDto updateActorDto) {
+        Optional<Actor> optionalActor = actorRepository.findById(updateActorDto.getId());
+
+        if (optionalActor.isPresent()) {
+            Actor actor = optionalActor.get();
+            mapper.map(updateActorDto, actor);
+            Actor updatedActor = actorRepository.save(actor);
+            return Optional.of(mapper.map(updatedActor, ActorDto.class));
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override

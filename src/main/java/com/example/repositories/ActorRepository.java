@@ -9,4 +9,5 @@ public interface ActorRepository {
     Actor save(Actor actor);
     Optional<Actor> update(Actor actor);
     List<Actor> findActorByPerformanceName(String performanceName);
+    Optional<Actor> findById(int id);
 }

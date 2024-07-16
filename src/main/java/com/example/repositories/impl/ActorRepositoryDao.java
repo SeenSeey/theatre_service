@@ -30,6 +30,10 @@ public class ActorRepositoryDao implements ActorRepository {
     public List<Actor> findActorByPerformanceName(String performanceName) {
         return baseActorRepository.findActorByPerformanceName(performanceName);
     }
+
+    public Optional<Actor> findById(int id) {
+        return Optional.of(baseActorRepository.findById(id));
+    }
 }
 
 @Repository
@@ -37,4 +41,7 @@ interface BaseActorRepository extends JpaRepository<Actor, Integer> {
     @Query(value = "SELECT a FROM Actor a JOIN a.contract c " +
             "JOIN c.performance p WHERE p.name = :performanceName")
     List<Actor> findActorByPerformanceName(@Param("performanceName") String performanceName);
+
+    @Query(value = "SELECT a FROM Actor a WHERE a.id = :id")
+    Actor findById(@Param("id") int id);
 }
