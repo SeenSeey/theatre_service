@@ -35,6 +35,11 @@ public class PerformanceRepositoryDao implements PerformanceRepository {
     public List<Performance> findPerformanceByDirectorNameAndSurname(String name, String surname) {
         return basePerformanceRepository.findPerformanceByDirectorNameAndSurname(name, surname);
     }
+
+    @Override
+    public Optional<Performance> findById(int id) {
+        return Optional.of(basePerformanceRepository.findById(id));
+    }
 }
 
 @Repository
@@ -47,4 +52,7 @@ interface BasePerformanceRepository extends JpaRepository<Performance, Integer> 
     @Query(value = "SELECT p FROM Performance p JOIN p.director d WHERE d.name = :name AND d.surname = :surname")
     List<Performance> findPerformanceByDirectorNameAndSurname(@Param("name") String name,
                                                               @Param("surname") String surname);
+
+    @Query(value = "SELECT p FROM Performance p WHERE p.id = :id")
+    Performance findById(@Param("id") int id);
 }

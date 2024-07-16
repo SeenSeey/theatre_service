@@ -42,6 +42,7 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     public List<ActorDto> findActorByPerformanceName(String performanceName) {
-        return actorRepository.findActorByPerformanceName(performanceName).stream().map((actor) -> mapper.map(actor, ActorDto.class)).toList();
+        return actorRepository.findActorByPerformanceName(performanceName).stream().map((actor) ->
+                mapper.map(actor, ActorDto.class)).toList();
     }
 }

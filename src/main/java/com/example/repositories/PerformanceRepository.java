@@ -10,4 +10,5 @@ public interface PerformanceRepository {
     Optional<Performance> update(Performance performance);
     List<Performance> findPerformanceByActorNameAndSurname (String name, String surname);
     List<Performance> findPerformanceByDirectorNameAndSurname (String name, String surname);
+    Optional<Performance> findById(int id);
 }

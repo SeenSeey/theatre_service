@@ -40,6 +40,7 @@ public class DirectorServiceImpl implements DirectorService {
 
     @Override
     public List<DirectorDto> findDirectorByPerformanceName(String performanceName) {
-        return directorRepository.findDirectorByPerformanceName(performanceName).stream().map((director) -> mapper.map(director, DirectorDto.class)).toList();
+        return directorRepository.findDirectorByPerformanceName(performanceName).stream().map((director) ->
+                mapper.map(director, DirectorDto.class)).toList();
     }
 }
