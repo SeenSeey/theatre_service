@@ -7,8 +7,6 @@ import com.example.services.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/actors")
 public class ActorRestController {

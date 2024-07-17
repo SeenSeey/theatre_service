@@ -12,5 +12,4 @@ public interface PerformanceRepository {
     List<Performance> findPerformanceByDirectorNameAndSurname (String name, String surname);
     Optional<Performance> findById(int id);
     List<Performance> findAll();
-
 }

@@ -92,7 +92,7 @@ public class PerformanceServiceImpl implements PerformanceService {
 
     @Override
     @Transactional
-    public Optional<PerformanceDto> addActorToPerformance(AddActorToPerformanceDto addActorToPerformanceDto) {
+    public void addActorToPerformance(AddActorToPerformanceDto addActorToPerformanceDto) {
         updateCategoriesAfterPerformance();
         Optional<Performance> optionalPerformance = performanceRepository.findById(addActorToPerformanceDto.getPerformanceId());
         Optional<Actor> optionalActor = actorRepository.findById(addActorToPerformanceDto.getActorId());
@@ -109,18 +109,14 @@ public class PerformanceServiceImpl implements PerformanceService {
 
                 performanceRepository.save(performance);
                 actorRepository.save(actor);
-                return Optional.of(mapper.map(performance, PerformanceDto.class));
-            } else {
-                return Optional.empty();
+                mapper.map(performance, PerformanceDto.class);
             }
-        } else {
-            return Optional.empty();
         }
     }
 
     @Override
     @Transactional
-    public Optional<PerformanceDto> addDirectorToPerformance(AddDirectorToPerformanceDto addDirectorToPerformanceDto) {
+    public void addDirectorToPerformance(AddDirectorToPerformanceDto addDirectorToPerformanceDto) {
         updateCategoriesAfterPerformance();
         Optional<Performance> optionalPerformance = performanceRepository.findById(addDirectorToPerformanceDto.getPerformanceId());
         Optional<Director> optionalDirector = directorRepository.findById(addDirectorToPerformanceDto.getDirectorId());
@@ -137,12 +133,8 @@ public class PerformanceServiceImpl implements PerformanceService {
 
                 performanceRepository.save(performance);
                 directorRepository.save(director);
-                return Optional.of(mapper.map(performance, PerformanceDto.class));
-            } else {
-                return Optional.empty();
+                mapper.map(performance, PerformanceDto.class);
             }
-        } else {
-            return Optional.empty();
         }
     }
 }

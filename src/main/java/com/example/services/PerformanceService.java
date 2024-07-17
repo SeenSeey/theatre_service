@@ -12,6 +12,7 @@ public interface PerformanceService {
     List<PerformanceDto> findPerformanceByActorNameAndSurname (String name, String surname);
     List<PerformanceDto> findPerformanceByDirectorNameAndSurname (String name, String surname);
     void updateCategoriesAfterPerformance();
-    Optional<PerformanceDto> addActorToPerformance(AddActorToPerformanceDto addActorToPerformanceDto);
-    Optional<PerformanceDto> addDirectorToPerformance(AddDirectorToPerformanceDto addDirectorToPerformanceDto);
+    void addActorToPerformance(AddActorToPerformanceDto addActorToPerformanceDto);
+    void addDirectorToPerformance(AddDirectorToPerformanceDto addDirectorToPerformanceDto);
 }
+
