@@ -43,6 +43,6 @@ public class PerformanceRepositoryImpl implements PerformanceRepository {
 
     @Override
     public List<Performance> findAll() {
-        return null;
+        return performanceRepository.findAll();
     }
 }

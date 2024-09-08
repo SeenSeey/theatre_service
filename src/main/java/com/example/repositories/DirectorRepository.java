@@ -8,10 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface DirectorRepository extends CrudRepository<Director, Integer>{
-//    Director save(Director director);
-//    Optional<Director> update(Director director);
-//    List<Director> findDirectorByPerformanceName(String performanceName);
-//    Optional<Director> findById(int id);
     @Query(value = "SELECT d FROM Director d JOIN d.performance p WHERE p.name = :performanceName")
     List<Director> findDirectorByPerformanceName(@Param("performanceName") String name);
 
